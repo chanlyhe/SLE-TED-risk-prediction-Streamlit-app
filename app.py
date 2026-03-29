@@ -12,7 +12,7 @@ matplotlib.rcParams["font.sans-serif"] = ["Arial Unicode MS", "DejaVu Sans", "Si
 matplotlib.rcParams["axes.unicode_minus"] = False
 
 st.set_page_config(
-    page_title="SLE患者TE风险预测",
+    page_title="SLE患者TED风险预测",
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -26,9 +26,6 @@ except NameError:
 
 MODEL_PATH = BASE_DIR / "models" / "rf_BSMOTE_stepwise_train_data_GBDT_final.joblib"
 
-st.write(f"当前项目目录：{BASE_DIR}")
-st.write(f"模型路径：{MODEL_PATH}")
-st.write(f"模型是否存在：{MODEL_PATH.exists()}")
 
 if not MODEL_PATH.exists():
     st.error(f"模型文件不存在：{MODEL_PATH}")
@@ -177,7 +174,7 @@ if predict_button:
 
     st.markdown(
         f"<div style='text-align:center; font-size:28px; font-weight:bold;'>"
-        f"您未来6个月内发生VTE的风险为："
+        f"您未来6个月内发生TED的风险为："
         f"<span style='color:{color}; font-size:38px;'> {risk:.2%} - {risk_level}</span>"
         f"</div>",
         unsafe_allow_html=True
@@ -238,8 +235,8 @@ if predict_button:
                 plt.tight_layout()
                 st.pyplot(fig2, clear_figure=True)
                 st.markdown(
-                    "📌 :red[红色] 表示该指标增加VTE风险；"
-                    " :blue[蓝色] 表示该指标降低/未增加VTE风险；"
+                    "📌 :red[红色] 表示该指标增加TED风险；"
+                    " :blue[蓝色] 表示该指标降低/未增加TED风险；"
                     " :green[数值] 表示影响大小。"
                 )
             except Exception as e:
